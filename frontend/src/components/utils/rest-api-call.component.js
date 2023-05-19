@@ -1,9 +1,9 @@
-import { Buffer } from "buffer";
+import {Buffer} from "buffer";
 
 const basicAuth = Buffer.from('user:hello').toString('base64');
 const baseUrl = "https://app.hotel.com:8080/api";
 
-export const getHotelList = async (pageNo = 1, pageSize = 5, hotelName ='') => {
+export const getHotelList = async (pageNo = 1, pageSize = 5, hotelName = '') => {
     const pageRequest = pageNo - 1;
     const response = await fetch(`${baseUrl}/hotels?page=${pageRequest}&pageSize=${pageSize}&hotelName=${hotelName}`, {
         method: 'get',
@@ -13,8 +13,7 @@ export const getHotelList = async (pageNo = 1, pageSize = 5, hotelName ='') => {
     });
     const responseJson = await response.json()
     const result = responseJson['result'];
-    const { totalElements, totalPages, hotelDtoList } = result;
-    console.info({ hotelDtoList })
+    const {totalElements, totalPages, hotelDtoList} = result;
     return {
         "data": hotelDtoList,
         "totalPages": totalPages,
@@ -29,31 +28,32 @@ export const getHotel = async (hotelId) => {
             'Authorization': 'Basic ' + basicAuth
         })
     });
-    const response = await data.json();
-    return response;
+    return await data.json();
 }
 
 
-export const createHotel = async () => {
+export const createHotel = async (hotel) => {
     const data = await fetch(`${baseUrl}/hotels`, {
         method: 'post',
         headers: new Headers({
-            'Authorization': 'Basic ' + basicAuth
-        })
+            'Authorization': 'Basic ' + basicAuth,
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(hotel)
     });
-    const response = await data.json();
-    return response;
+    return await data.json();
 }
 
-export const updateHotel = async () => {
+export const updateHotel = async (hotel) => {
     const data = await fetch(`${baseUrl}/hotels`, {
         method: 'put',
         headers: new Headers({
-            'Authorization': 'Basic ' + basicAuth
-        })
+            'Authorization': 'Basic ' + basicAuth,
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(hotel)
     });
-    const response = await data.json();
-    return response;
+    return await data.json();
 }
 
 export const deleteHotel = async (hotelId) => {
@@ -63,8 +63,7 @@ export const deleteHotel = async (hotelId) => {
             'Authorization': 'Basic ' + basicAuth
         })
     });
-    const response = await data.json();
-    return response;
+    return await data.json();
 }
 
 
@@ -75,8 +74,7 @@ export const getHotelAmenities = async (hotelId) => {
             'Authorization': 'Basic ' + basicAuth
         })
     });
-    const response = await data.json();
-    return response;
+    return await data.json();
 }
 
 export const addHotelAmenities = async (hotelId, amenityId) => {
@@ -86,8 +84,7 @@ export const addHotelAmenities = async (hotelId, amenityId) => {
             'Authorization': 'Basic ' + basicAuth
         })
     });
-    const response = await data.json();
-    return response;
+    return await data.json();
 }
 
 export const deleteHotelAmenities = async (hotelId, amenityId) => {
@@ -97,8 +94,7 @@ export const deleteHotelAmenities = async (hotelId, amenityId) => {
             'Authorization': 'Basic ' + basicAuth
         })
     });
-    const response = await data.json();
-    return response;
+    return await data.json();
 }
 
 export const getAmenityList = async () => {
@@ -108,6 +104,5 @@ export const getAmenityList = async () => {
             'Authorization': 'Basic ' + basicAuth
         })
     });
-    const response = await data.json();
-    return response;
+    return await data.json();
 }

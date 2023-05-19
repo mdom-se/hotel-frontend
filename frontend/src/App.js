@@ -11,7 +11,6 @@ class App extends Component {
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<HomePage/>}/>
-                    <Route path='/hotels' element={<HomePage/>}/>
                     <Route path='/hotels/:id' element={<HotelEdit/>}/>
                 </Routes>
             </BrowserRouter>
