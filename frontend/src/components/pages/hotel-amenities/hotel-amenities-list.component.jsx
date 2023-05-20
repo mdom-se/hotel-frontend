@@ -22,7 +22,7 @@ const HotelAmenitiesList = (props) => {
 
     return (
         <div>
-            <h3>Hotel Amenities</h3>
+            <h3>Amenities</h3>
             <ul className="amenityList-list">
                 {amenityList.map(({ amenityName, amenityId }, index) => {
                     return (
@@ -36,6 +36,7 @@ const HotelAmenitiesList = (props) => {
                                         value={amenityId}
                                         checked={props.isCheckboxCheked(amenityId)}
                                         onChange={props.handleChangeCheckbox}
+                                        disabled={props.isReadOnly}
                                     />
                                     <label htmlFor={`custom-checkbox-${index}`}>{amenityName}</label>
                                 </div>

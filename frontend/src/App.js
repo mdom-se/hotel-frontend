@@ -3,7 +3,7 @@ import './App.css';
 import HomePage from './components/pages/home/homepage.component';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import HotelEdit from './components/pages/hotel/hotel-edit.component';
-
+import './index.css';
 
 class App extends Component {
     render() {

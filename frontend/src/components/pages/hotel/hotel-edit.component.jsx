@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import { getHotel, getHotelAmenities, updateHotel, addHotelAmenities, deleteHotelAmenities, createHotel } from '../../utils/rest-api-call.component';
 import HotelAmenitiesList from '../hotel-amenities/hotel-amenities-list.component';
@@ -16,6 +16,7 @@ function HotelEdit() {
     const [srcHotelAmenities, setSrcHotelAmenities] = useState([]);
 
     const params = useParams();
+    const navigate = useNavigate();
 
     const isNewHotel = params.id === 'new';
     const hotelId = params.id !== 'new' ? params.id : undefined;
@@ -109,7 +110,7 @@ function HotelEdit() {
         createHotel(hotel).then(responseCreateHotel => {
             console.info({ responseCreateHotel });
             setHotel(responseCreateHotel.hotelDto);
-            handleAddHotelAmenities();
+            navigate("/hotels/" + responseCreateHotel.hotelDto.hotelId);
         });
     }
 
@@ -118,6 +119,7 @@ function HotelEdit() {
 
         if (isNewHotel) {
             handleCreateHotel()
+
         } else {
             handleUpdateHotel();
         }
@@ -136,27 +138,34 @@ function HotelEdit() {
             <Container>
                 <Form onSubmit={handleSubmit}>
                     <FormGroup>
-                        <Label for="hotelName">Hotel Name</Label>
-                        <Input type="text" name="hotelName" id="hotelName" value={hotel.hotelName}
-                            onChange={handleChange} />
+                            <Label for="hotelName">Hotel Name</Label>
+                            <Input type="text" name="hotelName" id="hotelName" value={hotel.hotelName}
+                                onChange={handleChange} />
                     </FormGroup>
                     <FormGroup>
-                        <Label for="address">Address</Label>
-                        <Input type="text" name="address" id="address" value={hotel.address}
-                            onChange={handleChange} />
+                            <Label for="address">Address</Label>
+                            <Input type="text" name="address" id="address" value={hotel.address}
+                                onChange={handleChange} />
                     </FormGroup>
                     <FormGroup>
-                        <Label for="rating">Rating</Label>
-                        <Input type="text" name="rating" id="rating" value={hotel.rating}
-                            onChange={handleChange} />
+                            <Label for="rating">Rating</Label>
+                            <Input type="text" name="rating" id="rating" value={hotel.rating}
+                                onChange={handleChange} />
                     </FormGroup>
                     <FormGroup>
-                        <Button color="primary" type="submit">Save</Button>{' '}
+                            <Button color="primary" type="submit">Save</Button>{' '}
                         <Button color="secondary" tag={Link} to="/">Return</Button>
                     </FormGroup>
                 </Form>
             </Container>
-            < HotelAmenitiesList hotelAmenities={hotelAmenities} isCheckboxCheked={isCheckboxCheked} handleChangeCheckbox={handleChangeCheckbox} />
+            {!isNewHotel &&
+                <HotelAmenitiesList
+                    hotelAmenities={hotelAmenities}
+                    isCheckboxCheked={isCheckboxCheked}
+                    handleChangeCheckbox={handleChangeCheckbox}
+                    isReadOnly={isNewHotel}
+                />
+            }
         </div>
     )
 
