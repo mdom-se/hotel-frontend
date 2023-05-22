@@ -11,14 +11,7 @@ export const getHotelList = async (pageNo = 1, pageSize = 5, hotelName = '') => 
             'Authorization': 'Basic ' + basicAuth
         })
     });
-    const responseJson = await response.json()
-    const result = responseJson['result'];
-    const {totalElements, totalPages, hotelDtoList} = result;
-    return {
-        "data": hotelDtoList,
-        "totalPages": totalPages,
-        "totalElements": totalElements
-    }
+    return await response.json();
 }
 
 export const getHotel = async (hotelId) => {
@@ -106,3 +99,4 @@ export const getAmenityList = async () => {
     });
     return await data.json();
 }
+

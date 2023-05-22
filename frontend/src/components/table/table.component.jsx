@@ -1,7 +1,7 @@
 import React, {useMemo} from "react";
 import {useTable} from "react-table";
 import Loader from "./loader/loader.component";
-import styles from './styles.module.css'
+import { Table } from "reactstrap";
 
 const AppTable = ({columns, data, isLoading, manualPagination = false}) => {
 
@@ -25,7 +25,7 @@ const AppTable = ({columns, data, isLoading, manualPagination = false}) => {
                 <Loader/>
             ) : (
                 <>
-                    <table {...getTableProps()}>
+                    <Table {...getTableProps()}>
                         <thead>
                         {headerGroups.map((headerGroup) => (
                             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -51,7 +51,7 @@ const AppTable = ({columns, data, isLoading, manualPagination = false}) => {
                             );
                         })}
                         </tbody>
-                    </table>
+                    </Table>
                     {manualPagination && (
                         <div>
                             {/* YOUR CLIENT SIDE PAGINATION COMPONENT BUILT USING REACT-TABLE UTILITY FUNCTIONS */}

@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./styles.module.css";
 
 const Pagination = ({
-                        pageChangeHandler,
-                        totalRows,
-                        rowsPerPage,
-                        currentPage,
-                    }) => {
+    pageChangeHandler,
+    totalRows,
+    rowsPerPage,
+    currentPage,
+}) => {
     // Calculating max number of pages
     const noOfPages = Math.ceil(totalRows / rowsPerPage);
 
@@ -63,11 +63,12 @@ const Pagination = ({
 
     return (
         <>
-            {noOfPages > 1 ? (
-                <div className={styles.pagination}>
-                    <div className={styles.pageInfo}>
-                        Showing {pageFirstRecord} - {pageLastRecord} of {totalRows}
-                    </div>
+
+            <div className={styles.pagination}>
+                <div className={styles.pageInfo}>
+                    Showing {pageFirstRecord} - {pageLastRecord} of {totalRows}
+                </div>
+                {noOfPages > 1 && (
                     <div className={styles.pagebuttons}>
                         <button
                             className={styles.pageBtn}
@@ -80,9 +81,8 @@ const Pagination = ({
                             <button
                                 key={index}
                                 onClick={() => onPageSelect(index + 1)}
-                                className={`${styles.pageBtn}  ${
-                                    index + 1 === currentPage ? styles.activeBtn : ""
-                                }`}
+                                className={`${styles.pageBtn}  ${index + 1 === currentPage ? styles.activeBtn : ""
+                                    }`}
                             >
                                 {index + 1}
                             </button>
@@ -95,8 +95,9 @@ const Pagination = ({
                             &#8250;
                         </button>
                     </div>
-                </div>
-            ) : null}
+
+                )}
+            </div>
         </>
     );
 };

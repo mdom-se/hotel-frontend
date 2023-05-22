@@ -1,0 +1,19 @@
+.header-page {
+  background-image: url('beach-header-img.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.top {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+
+.header-title {
+  color: whitesmoke;
+  padding: 4%;
+}

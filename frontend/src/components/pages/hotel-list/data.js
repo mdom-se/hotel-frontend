@@ -1,6 +1,7 @@
 import { Button } from "reactstrap";
 import { ButtonGroup } from "reactstrap";
 import { Link } from "react-router-dom";
+import { Rating } from "@mui/material";
 
 export const getColumns = (handleDelete) => {
     return [
@@ -15,6 +16,12 @@ export const getColumns = (handleDelete) => {
         {
             Header: "Rating",
             accessor: "rating",
+            Cell: (object, _unused) => {
+                const { value } = object;
+                return (
+                    <Rating name="rating" value={value} readOnly />
+                )
+            }
         },
         {
             Header: "Actions",
