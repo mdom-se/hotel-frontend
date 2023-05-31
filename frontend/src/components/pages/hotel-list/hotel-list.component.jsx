@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getColumns, formatRowData } from "./data";
 import AppTable from "../../table/table.component";
 import Pagination from "../../table/pagination/pagination.component";
@@ -23,7 +23,7 @@ const HotelList = () => {
 
     const emptyAlertMessage = { isOpen: false, message: '', type: 'success' };
     const [showAlertMessage, setShowAlertMessage] = useState(emptyAlertMessage);
-
+    
     const initStatePageDate = (isLoading) => {
         setPageData((prevState) => ({
             ...prevState,
@@ -43,9 +43,9 @@ const HotelList = () => {
                     totalPages,
                     totalElements: totalElements
                 });
-            }else{
+            } else {
                 initStatePageDate(false);
-                setShowAlertMessage(getAlertMessageUtil({statusCode, message}))
+                setShowAlertMessage(getAlertMessageUtil({ statusCode, message }))
             }
 
         }).catch(response => {
@@ -76,8 +76,8 @@ const HotelList = () => {
         setShowAlertMessage(emptyAlertMessage);
     }
 
-    return (
-        <Container>
+    const getHeadTable = () => {
+        return (
             <FormGroup row>
                 <Col sm={3}>
                     <Input
@@ -94,6 +94,11 @@ const HotelList = () => {
                     </div>
                 </Col>
             </FormGroup>
+        )
+    }
+
+    const getTableBody = () => {
+        return (
             <FormGroup row>
                 <AppTable
                     columns={columns}
@@ -101,6 +106,11 @@ const HotelList = () => {
                     isLoading={pageData.isLoading}
                 />
             </FormGroup>
+        );
+    }
+
+    const getTableFooter = () => {
+        return (
             <FormGroup row>
                 <Pagination
                     totalRows={pageData.totalElements}
@@ -109,13 +119,21 @@ const HotelList = () => {
                     currentPage={currentPage}
                 />
             </FormGroup>
+        )
+    }
+
+
+    return (
+        <Container>
+            {getHeadTable()}
+            {getTableBody()}
+            {getTableFooter()}
             <AlertMessage
                 message={showAlertMessage.message}
                 type={showAlertMessage.type}
                 isOpen={showAlertMessage.isOpen}
                 handleClose={handleCloseAlertMessage} />
         </Container>
-
     );
 };
 

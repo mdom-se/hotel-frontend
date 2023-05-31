@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Container, Form, FormGroup, Button, Input, Label, Col } from "reactstrap";
+import { generateToken } from "../../utils/rest-api-call.component";
+import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ setToken }) => {
 
     const [username, setUsername] = useState("");
-
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+
 
     function validateForm() {
         return username.length > 0 && password.length > 0;
@@ -13,6 +16,11 @@ const Login = () => {
 
     function handleSubmit(event) {
         event.preventDefault();
+        generateToken({ username, password })
+            .then(response => {
+                setToken(response.accessToken);
+            });
+
     }
 
     return (
