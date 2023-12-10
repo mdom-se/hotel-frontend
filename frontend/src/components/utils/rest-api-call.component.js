@@ -1,6 +1,4 @@
-import {Buffer} from "buffer";
-
-const baseUrl = "https://app.hotel.com:8080/api";
+const baseUrl = window.MY_APP_API_URL
 
 const getToken = () => {
     return sessionStorage.getItem('token')

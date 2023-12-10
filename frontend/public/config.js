@@ -1,0 +1,1 @@
+window.MY_APP_API_URL='https://app.hotel.com:8080/api';
